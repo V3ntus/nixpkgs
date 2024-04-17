@@ -32,6 +32,9 @@ in {
     };
 
     systemd.services.wazuh-agent = mkIf cfg.agent.enable {
+      path = [
+        pkgs.busybox
+      ];
       description = "Wazuh agent";
       wants = [ "network-online.target" ];
       after = [ "network.target" "network-online.target" ];
@@ -51,9 +54,9 @@ in {
       serviceConfig = {
         Type = "forking";
         WorkingDirectory = stateDir;
-        ExecStart = "env ${stateDir}/bin/wazuh-control start";
-        ExecStop = "env ${stateDir}/bin/wazuh-control stop";
-        ExecReload = "env ${stateDir}/bin/wazuh-control reload";
+        ExecStart = "${stateDir}/bin/wazuh-control start";
+        ExecStop = "${stateDir}/bin/wazuh-control stop";
+        ExecReload = "${stateDir}/bin/wazuh-control reload";
         KillMode = "process";
         RemainAfterExit = "yes";
       };
