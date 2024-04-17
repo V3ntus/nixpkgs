@@ -33,12 +33,6 @@ in {
   };
 
   config = mkIf ( cfg.agent.enable ) {
-    assert assertMsg ( cfg.agent.managerIP != "" ) "services.wazuh.agent.managerIP must be set"; "";
-
-    # Generate and write the agent config using the options supplied.
-    # This gets written to the store, but will be moved to /var/ossec/etc/ later.
-    writeTextFile "etc/ossec.conf" import ./generate-agent-config.nix { cfg };
-
     environment.systemPackages = [ pkg ];
 
     users.users.${ wazuhUser } = {
@@ -83,4 +77,10 @@ in {
       };
     };
   };
+
+  assert assertMsg ( cfg.agent.managerIP != "" ) "services.wazuh.agent.managerIP must be set"; "";
+
+  # Generate and write the agent config using the options supplied.
+  # This gets written to the store, but will be moved to /var/ossec/etc/ later.
+  writeTextFile "etc/ossec.conf" import ./generate-agent-config.nix { cfg };
 }
