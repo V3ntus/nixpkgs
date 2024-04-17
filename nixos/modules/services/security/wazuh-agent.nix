@@ -50,7 +50,7 @@ in {
 
       serviceConfig = {
         Type = "forking";
-        WorkingDirectory = stateDir
+        WorkingDirectory = stateDir;
         ExecStart = "env ${pkg}/bin/wazuh-control start";
         ExecStop = "env ${pkg}/bin/wazuh-control stop";
         ExecReload = "env ${pkg}/bin/wazuh-control reload";
