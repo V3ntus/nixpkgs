@@ -12,12 +12,19 @@ in {
       agent = {
         enable = mkEnableOption "Wazuh agent";
 
-        # TODO: mkOption -> XML for ossec.conf
+        managerIP = mkOption {
+          types = types.str;
+          description = ''
+            The IP address or hostname of the manager. 
+          '';
+        };
       };
     };
   };
 
   config = mkIf ( cfg.agent.enable ) {
+    assertMsg ( cfg.agent.managerIP != "" ) "services.wazuh.agent.managerIP must be set";
+
     environment.systemPackages = [ pkg ];
 
     users.users.${ wazuhUser } = {

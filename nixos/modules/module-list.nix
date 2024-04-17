@@ -1264,7 +1264,7 @@
   ./services/security/vault.nix
   ./services/security/vault-agent.nix
   ./services/security/vaultwarden/default.nix
-  ./services/security/wazuh-agent.nix
+  ./services/security/wazuh/wazuh.nix
   ./services/security/yubikey-agent.nix
   ./services/system/automatic-timezoned.nix
   ./services/system/bpftune.nix
