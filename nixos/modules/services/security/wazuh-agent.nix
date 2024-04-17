@@ -51,9 +51,9 @@ in {
       serviceConfig = {
         Type = "forking";
         WorkingDirectory = stateDir;
-        ExecStart = "env ${pkg}/bin/wazuh-control start";
-        ExecStop = "env ${pkg}/bin/wazuh-control stop";
-        ExecReload = "env ${pkg}/bin/wazuh-control reload";
+        ExecStart = "env ${stateDir}/bin/wazuh-control start";
+        ExecStop = "env ${stateDir}/bin/wazuh-control stop";
+        ExecReload = "env ${stateDir}/bin/wazuh-control reload";
         KillMode = "process";
         RemainAfterExit = "yes";
       };
