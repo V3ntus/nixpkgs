@@ -10,6 +10,7 @@
   <client>
     <server>
       <address>${cfg.agent.managerIP}</address>
+      <port>${cfg.agent.managerPort}</port>
     </server>
     <config-profile>debian, debian8</config-profile>
     <crypto_method>aes</crypto_method>

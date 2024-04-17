@@ -15,8 +15,18 @@ in {
         managerIP = mkOption {
           types = types.str;
           description = ''
-            The IP address or hostname of the manager. 
+            The IP address or hostname of the manager. This is a required value.
           '';
+          example = "192.168.1.2";
+        };
+
+        managerPort = mkOption {
+          types = types.int;
+          description = ''
+            The port the manager is listening on to receive agent traffic.
+          '';
+          example = 1514;
+          default = 1514;
         };
       };
     };
@@ -24,6 +34,10 @@ in {
 
   config = mkIf ( cfg.agent.enable ) {
     assertMsg ( cfg.agent.managerIP != "" ) "services.wazuh.agent.managerIP must be set";
+
+    # Generate and write the agent config using the options supplied.
+    # This gets written to the store, but will be moved to /var/ossec/etc/ later.
+    writeTextFile "etc/ossec.conf" import ./generate-agent-config.nix { cfg };
 
     environment.systemPackages = [ pkg ];
 
