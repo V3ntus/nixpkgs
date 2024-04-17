@@ -165,4 +165,5 @@
   </active-response>
 
 </ossec_config>
-  '';
+${cfg.agent.extraConfig}
+'';

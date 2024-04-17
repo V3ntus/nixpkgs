@@ -1,4 +1,9 @@
 { config, lib, pkgs, ... }:
+
+# Generate and write the agent config using the options supplied.
+# This gets written to the store, but will be moved to /var/ossec/etc/ later.
+writeTextFile "etc/ossec.conf" import ./generate-agent-config.nix { config.services.wazuh }
+
 with lib;
 let
   wazuhUser = "wazuh";
@@ -28,12 +33,37 @@ in {
           example = 1514;
           default = 1514;
         };
+
+        extraConfig = mkOption {
+          type = types.lines;
+          description = ''
+            Extra configuration values to be appended to the bottom of ossec.conf.
+          '';
+          default = "";
+          example = ''
+          <!-- The added ossec_config root tag is required -->
+          <ossec_config>
+            <!-- Extra configuration options as needed -->
+          </ossec_config>
+          '';
+        };
       };
     };
   };
 
   config = mkIf ( cfg.agent.enable ) {
     environment.systemPackages = [ pkg ];
+
+    assertions = [
+      {
+        assertion = !( cfg.agent.managerIP == "" );
+        message = "services.wazuh.agent.managerIP must be set";
+      }
+      {
+        assertion = cfg.agent.managerPort > 0 && cfg.agent.managerPort <= 65535;
+        message = "services.wazuh.agent.managerPort is set to a port out of range";
+      }
+    ];
 
     users.users.${ wazuhUser } = {
       uid = config.ids.uids.wazuh;
@@ -77,10 +107,4 @@ in {
       };
     };
   };
-
-  assert assertMsg ( cfg.agent.managerIP != "" ) "services.wazuh.agent.managerIP must be set"; "";
-
-  # Generate and write the agent config using the options supplied.
-  # This gets written to the store, but will be moved to /var/ossec/etc/ later.
-  writeTextFile "etc/ossec.conf" import ./generate-agent-config.nix { cfg };
 }
