@@ -58,6 +58,10 @@
          nix-build lib/tests/maintainers.nix
 
     See `./scripts/check-maintainer-github-handles.sh` for an example on how to work with this data.
+
+    When adding a new maintainer, be aware of the current commit conventions
+    documented at [CONTRIBUTING.md](https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md#commit-conventions)
+    file located in the root of the Nixpkgs repo.
 */
 {
   _0b11stan = {
@@ -10203,6 +10207,11 @@
     githubId = 6544084;
     name = "Kai Harries";
   };
+  kai-tub = {
+    name = "Kai Norman Clasen";
+    github = "kai-tub";
+    githubId = 46302524;
+  };
   kalbasit = {
     email = "wael.nasreddine@gmail.com";
     matrix = "@kalbasit:matrix.org";
@@ -19033,12 +19042,6 @@
     githubId = 2798728;
     name = "Filip Czaplicki";
   };
-  star-szr = {
-    email = "nixpkgs@szr.fastmail.com";
-    github = "star-szr";
-    githubId = 327943;
-    name = "Scott Zhu Reeves";
-  };
   starzation = {
     email = "nixpkgs@starzation.net";
     github = "starzation";
@@ -19401,6 +19404,12 @@
     email = "contact@sweenu.xyz";
     github = "sweenu";
     githubId = 7051978;
+  };
+  swendel = {
+    name = "Sebastian Wendel";
+    email = "nixpkgs.aiX5ph@srx.digital";
+    github = "SebastianWendel";
+    githubId = 919570;
   };
   swesterfeld = {
     email = "stefan@space.twc.de";
@@ -20258,6 +20267,11 @@
     github = "tnias";
     githubId = 9853194;
     name = "Philipp Bartsch";
+  };
+  toast = {
+    name = "Toast";
+    github = "toast003";
+    githubId = 39011842;
   };
   toastal = {
     email = "toastal+nix@posteo.net";
