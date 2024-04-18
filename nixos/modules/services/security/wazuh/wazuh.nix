@@ -1,9 +1,5 @@
 { config, lib, pkgs, ... }:
 
-# Generate and write the agent config using the options supplied.
-# This gets written to the store, but will be moved to /var/ossec/etc/ later.
-writeTextFile "etc/ossec.conf" import ./generate-agent-config.nix { config.services.wazuh }
-
 with lib;
 let
   wazuhUser = "wazuh";
@@ -11,6 +7,7 @@ let
   stateDir = "/var/ossec";
   cfg = config.services.wazuh;
   pkg = pkgs.wazuh;
+  generatedConfig = pkgs.writeText "etc/ossec.conf" import ./generate-agent-config.nix { cfg = config.services.wazuh; };
 in {
   options = {
     services.wazuh = {
@@ -18,7 +15,7 @@ in {
         enable = mkEnableOption "Wazuh agent";
 
         managerIP = mkOption {
-          types = types.str;
+          type = types.str;
           description = ''
             The IP address or hostname of the manager. This is a required value.
           '';
@@ -26,7 +23,7 @@ in {
         };
 
         managerPort = mkOption {
-          types = types.int;
+          type = types.int;
           description = ''
             The port the manager is listening on to receive agent traffic.
           '';
