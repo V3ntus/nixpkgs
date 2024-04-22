@@ -73,6 +73,10 @@ in {
       gid = config.ids.gids.wazuh;
     };
 
+    systemd.tmpfiles.rules = [
+      "d ${stateDir} 0750 ${wazuhUser} ${wazuhGroup}"
+    ];
+
     systemd.services.wazuh-agent = mkIf cfg.agent.enable {
       path = [
         pkgs.busybox
@@ -83,7 +87,6 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''
-        mkdir -m 0750 -p ${stateDir}
         cp -rf ${pkg}/* ${stateDir}
 
         find ${stateDir} -type f -exec chmod 644 {} \;
