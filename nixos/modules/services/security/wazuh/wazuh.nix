@@ -6,7 +6,7 @@ let
   wazuhGroup = wazuhUser;
   stateDir = "/var/ossec";
   cfg = config.services.wazuh;
-  pkg = pkgs.wazuh;
+  pkg = config.services.wazuh.package;
   generatedConfig = import ./generate-agent-config.nix { cfg = config.services.wazuh; pkgs = pkgs; };
 in {
   options = {
@@ -44,6 +44,14 @@ in {
           </ossec_config>
           '';
         };
+      };
+
+      package = mkOption {
+        default = pkgs.wazuh;
+        type = types.package;
+        description = ''
+        The Wazuh package to use.
+        '';
       };
     };
   };
