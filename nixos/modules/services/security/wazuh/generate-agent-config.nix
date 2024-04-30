@@ -1,6 +1,6 @@
-{ cfg }:
-  ''
-  <!--
+{ cfg, pkgs }:
+pkgs.writeText "ossec.conf" ''
+<!--
   Wazuh - Agent - Default configuration.
   More info at: https://documentation.wazuh.com
   Mailing list: https://groups.google.com/forum/#!forum/wazuh
@@ -166,4 +166,4 @@
 
 </ossec_config>
 ${cfg.agent.extraConfig}
-'';
+''

@@ -7,11 +7,7 @@ let
   stateDir = "/var/ossec";
   cfg = config.services.wazuh;
   pkg = pkgs.wazuh;
-  generatedConfig = pkgs.writeTextFile {
-    name = "ossec.conf";
-    text = import ./generate-agent-config.nix { cfg = config.services.wazuh; };
-    destination = "/etc/ossec.conf";
-  };
+  generatedConfig = import ./generate-agent-config.nix { cfg = config.services.wazuh; pkgs = pkgs; };
 in {
   options = {
     services.wazuh = {
@@ -83,7 +79,7 @@ in {
 
     systemd.services.wazuh-agent = mkIf cfg.agent.enable {
       path = [
-        pkgs.busybox
+        "/run/current-system/sw"
       ];
       description = "Wazuh agent";
       wants = [ "network-online.target" ];
