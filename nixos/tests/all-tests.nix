@@ -308,6 +308,7 @@ in {
   ferm = handleTest ./ferm.nix {};
   ferretdb = handleTest ./ferretdb.nix {};
   filesystems-overlayfs = runTest ./filesystems-overlayfs.nix;
+  firefly-iii = handleTest ./firefly-iii.nix {};
   firefox = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox; };
   firefox-beta = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-beta; };
   firefox-devedition = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-devedition; };
@@ -398,6 +399,7 @@ in {
   honk = runTest ./honk.nix;
   installed-tests = pkgs.recurseIntoAttrs (handleTest ./installed-tests {});
   invidious = handleTest ./invidious.nix {};
+  isolate = handleTest ./isolate.nix {};
   livebook-service = handleTest ./livebook-service.nix {};
   pyload = handleTest ./pyload.nix {};
   oci-containers = handleTestOn ["aarch64-linux" "x86_64-linux"] ./oci-containers.nix {};
@@ -771,6 +773,7 @@ in {
   qgis = handleTest ./qgis.nix { qgisPackage = pkgs.qgis; };
   qgis-ltr = handleTest ./qgis.nix { qgisPackage = pkgs.qgis-ltr; };
   qownnotes = handleTest ./qownnotes.nix {};
+  qtile = handleTest ./qtile.nix {};
   quake3 = handleTest ./quake3.nix {};
   quicktun = handleTest ./quicktun.nix {};
   quorum = handleTest ./quorum.nix {};
@@ -781,6 +784,7 @@ in {
   rasdaemon = handleTest ./rasdaemon.nix {};
   readarr = handleTest ./readarr.nix {};
   redis = handleTest ./redis.nix {};
+  redlib = handleTest ./redlib.nix {};
   redmine = handleTest ./redmine.nix {};
   restartByActivationScript = handleTest ./restart-by-activation-script.nix {};
   restic-rest-server = handleTest ./restic-rest-server.nix {};
@@ -857,6 +861,7 @@ in {
   stunnel = handleTest ./stunnel.nix {};
   sudo = handleTest ./sudo.nix {};
   sudo-rs = handleTest ./sudo-rs.nix {};
+  sunshine = handleTest ./sunshine.nix {};
   suwayomi-server = handleTest ./suwayomi-server.nix {};
   swap-file-btrfs = handleTest ./swap-file-btrfs.nix {};
   swap-partition = handleTest ./swap-partition.nix {};
@@ -939,7 +944,6 @@ in {
   tiddlywiki = handleTest ./tiddlywiki.nix {};
   tigervnc = handleTest ./tigervnc.nix {};
   timescaledb = handleTest ./timescaledb.nix {};
-  promscale = handleTest ./promscale.nix {};
   timezone = handleTest ./timezone.nix {};
   tinc = handleTest ./tinc {};
   tinydns = handleTest ./tinydns.nix {};
