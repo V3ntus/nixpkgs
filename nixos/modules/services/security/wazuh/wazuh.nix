@@ -7,7 +7,11 @@ let
   stateDir = "/var/ossec";
   cfg = config.services.wazuh;
   pkg = pkgs.wazuh;
-  generatedConfig = pkgs.writeText "etc/ossec.conf" import ./generate-agent-config.nix { cfg = config.services.wazuh; };
+  generatedConfig = pkgs.writeTextFile {
+    name = "ossec.conf";
+    text = import ./generate-agent-config.nix { cfg = config.services.wazuh; };
+    destination = "/etc/ossec.conf";
+  };
 in {
   options = {
     services.wazuh = {
@@ -88,6 +92,7 @@ in {
 
       preStart = ''
         cp -rf ${pkg}/* ${stateDir}
+        cp ${generatedConfig} ${stateDir}/etc/ossec.conf
 
         find ${stateDir} -type f -exec chmod 644 {} \;
         find ${stateDir} -type d -exec chmod 750 {} \;
