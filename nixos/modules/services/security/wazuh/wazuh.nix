@@ -48,6 +48,7 @@ in {
 
       package = mkOption {
         default = pkgs.wazuh;
+        defaultText = literalExpression "pkgs.wazuh";
         type = types.package;
         description = ''
         The Wazuh package to use.
