@@ -8,6 +8,7 @@ let
   cfg = config.services.wazuh;
   pkg = config.services.wazuh.package;
   generatedConfig = import ./generate-agent-config.nix { cfg = config.services.wazuh; pkgs = pkgs; };
+  rsyncPath = "${pkgs.rsync}/bin";
 in {
   options = {
     services.wazuh = {
@@ -96,7 +97,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''
-        cp -rf ${pkg}/* ${stateDir}
+        rsync -av --exclude '/etc/client.keys' ${pkg}/ ${stateDir}/
         cp ${generatedConfig} ${stateDir}/etc/ossec.conf
 
         find ${stateDir} -type f -exec chmod 644 {} \;
