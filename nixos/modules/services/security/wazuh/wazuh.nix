@@ -97,7 +97,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''
-        rsync -av --exclude '/etc/client.keys' --exclude '/var/ossec/logs/ossec.log' ${pkg}/ ${stateDir}/
+        rsync -av --exclude '/etc/client.keys' --exclude '/logs/' ${pkg}/ ${stateDir}/
         cp ${generatedConfig} ${stateDir}/etc/ossec.conf
 
         find ${stateDir} -type f -exec chmod 644 {} \;
