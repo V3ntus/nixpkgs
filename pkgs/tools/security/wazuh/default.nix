@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, ... }:
+{ lib, pkgs ? import <nixpkgs> { }, ... }:
 with pkgs;
 with pkgs.lib.strings;
 let
@@ -226,5 +226,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Wazuh agent for NixOS";
     homepage = "https://wazuh.com";
+    maintainers = with maintainers; [ V3ntus ];
   };
 }
