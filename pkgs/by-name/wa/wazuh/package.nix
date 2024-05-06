@@ -1,6 +1,23 @@
-{ lib, pkgs ? import <nixpkgs> { }, ... }:
-with pkgs;
-with pkgs.lib.strings;
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchurl
+, autoconf
+, automake
+, cmake
+, coreutils
+, curl
+, gcc
+, gnumake
+, libcxx
+, libgcc
+, libtool
+, openssl
+, perl
+, policycoreutils
+, python312
+, zstd
+}:
 let
   dependencyVersion = "24";
   fetcher =
@@ -132,7 +149,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-h9gMAjE09f6nQ9zO7wdC+fspLKE6z5tlypHzdObJRGA=";
   };
 
-  buildInputs = with pkgs; [
+  buildInputs = [
     autoconf
     automake
     cmake
@@ -149,7 +166,7 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  unpackPhase = ''
+  unpackPhase = with lib.strings; ''
     mkdir -p $out/src/src/external
     cp --no-preserve=all -rf $src/* $out/src
     ${(concatStringsSep "\n" (map(dep: "tar -xzf ${dep} -C $out/src/src/external") dependencies))}
@@ -223,7 +240,8 @@ stdenv.mkDerivation rec {
     chmod u+x $out/bin/* $out/active-response/bin/*
     rm -rf $out/src # Remove src
   '';
-  meta = {
+
+  meta = with lib; {
     description = "Wazuh agent for NixOS";
     homepage = "https://wazuh.com";
     maintainers = with maintainers; [ V3ntus ];
