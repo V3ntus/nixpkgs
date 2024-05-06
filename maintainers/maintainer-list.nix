@@ -18711,10 +18711,10 @@
     name = "Stephan Jau";
   };
   sjdwhiting = {
-    email = "sebastian@sebsec.io"
-    github = "sjdwhiting"
-    githubId = 43416527
-    name = "Sebastian Whiting"
+    email = "sebastian@sebsec.io";
+    github = "sjdwhiting";
+    githubId = 43416527;
+    name = "Sebastian Whiting";
   };
   sjfloat = {
     email = "steve+nixpkgs@jonescape.com";
